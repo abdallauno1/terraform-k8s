@@ -1,0 +1,25 @@
+   
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 2.13.0"
+    }
+  }
+}
+
+provider "docker" {}
+
+resource "docker_image" "resume" {
+  name         = "abdallauno1/resumeapp:v1"
+  keep_locally = false
+}
+
+resource "docker_container" "resume" {
+  image = docker_image.abdallauno1/resumeapp.v1
+  name  = "tutorial"
+  ports {
+    internal = 4000
+    external = 5000
+  }
+}
